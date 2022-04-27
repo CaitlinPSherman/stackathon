@@ -1,21 +1,36 @@
 body {
   font-family: sans-serif;
+  color: white;
+  background-color: black;
 }
 
 a {
   text-decoration: none;
+  color: blue;
 }
 
 label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+nav {
+  background-color: blueviolet;
+  color: white;
+  height: 60px;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
+#main-container {
+  margin: 80px 20px 20px 20px;
+}
+
+button {
+  border: none;
+  background-color: darkblue;
+  padding: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
 }

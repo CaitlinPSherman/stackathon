@@ -1,58 +1,86 @@
-'use strict'
+const {
+  db,
+  models: { Image }
+} = require('../server/db');
 
-const {db, models: {User} } = require('../server/db')
+const images = [
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Naturalis_Biodiversity_Center_-_RMNH.AVES.154252_1_-_Acanthis_flammea_flammea_%28Linnaeus%2C_1758%29_-_Fringillidae_-_bird_skin_specimen.jpeg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/1/18/%D0%9C%D0%B0%D0%BD%D0%B0%D1%81%D1%82%D0%B8%D1%80_%D0%A1%D0%B2%D0%B5%D1%82%D0%B5_%D0%9F%D0%B5%D1%82%D0%BA%D0%B5_%D1%83_%D0%91%D0%B8%D1%98%D0%B5%D1%99%D0%B8%D0%BD%D0%B8.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/086_Monument_als_M%C3%A0rtirs_de_la_Independ%C3%A8ncia%2C_enrajolat.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Hillock_-_panoramio.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/KleinB%C3%BCnzowBfNO.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Bangor_West_station_%283%29_-_geograph.org.uk_-_2869202.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/ChevroletCorvette_2.JPG',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Paran%C3%A1%2C_Entre_R%C3%ADos%2C_Argentina_-_panoramio_%28211%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Bowl_MET_wb-35.64.2.jpeg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/4/40/Nearing_Brackwell_farm_-_geograph.org.uk_-_969861.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Bahnmeisterei_Malliss.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Flux_Pavilion_%40_Spring_Awakening_6_14_2014_%2814463331416%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/2/20/Rosa_%E2%80%9CPink_Parfait%E2%80%9D._01.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Kaysersberg_Tribunal.JPG',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/5th_SBCT%2C_2nd_ID_troops_conduct_patrol_in_Arghandab_River_Valley_DVIDS232728.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Once_in_a_blue_moon%2C_He_woke_up.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/2012-07_Grand_Canyon_National_Park_Science_%26_RM_Building_2060_%287492117730%29.jpg',
+  },
+];
 
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
+
+
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
-
-  // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
-}
-
-/*
- We've separated the `seed` function from the `runSeed` function.
- This way we can isolate the error handling and exit trapping.
- The `seed` function is concerned only with modifying the database.
-*/
-async function runSeed() {
-  console.log('seeding...')
   try {
-    await seed()
+    await db.sync({ force: true });
+    await Promise.all(
+      images.map((img) => {
+        return Image.create(img);
+      })
+    );
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
-  } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log(err);
   }
 }
 
-/*
-  Execute the `seed` function, IF we ran this module directly (`node seed`).
-  `Async` functions always return a promise, so we can use `catch` to handle
-  any errors that might occur inside of `seed`.
-*/
-if (module === require.main) {
-  runSeed()
+module.exports = seed;
+if (require.main === module) {
+  seed()
+    .then(() => {
+      console.log('Seeding success!');
+      db.close();
+    })
+    .catch((err) => {
+      console.error(err);
+      db.close();
+    });
 }
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
