@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { stat } from 'fs';
-import { initial } from 'lodash';
 
 const GET_GAME_CODE = 'GET_GAME_CODE';
 const GET_PICTURES = 'GET_PICTURES';

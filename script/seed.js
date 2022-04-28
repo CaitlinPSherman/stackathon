@@ -1,6 +1,6 @@
 const {
   db,
-  models: { Image }
+  models: { Image },
 } = require('../server/db');
 
 const images = [
@@ -55,9 +55,16 @@ const images = [
   {
     url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/2012-07_Grand_Canyon_National_Park_Science_%26_RM_Building_2060_%287492117730%29.jpg',
   },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Salto_Juancho_-_panoramio.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/ISS043-E-242899_-_View_of_Earth.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Estaci%C3%B3n_de_Gadea_-_R%C3%ADo_Tinto.jpg',
+  },
 ];
-
-
 
 async function seed() {
   try {
