@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const random = require('random');
+const seedrandom = require('seedrandom')
 const {
   models: { Image },
 } = require('../db');
@@ -7,13 +9,12 @@ module.exports = router;
 router.get('/:code', async (req, res, next) => {
   try {
     //generate random array of 16 pictureIds using code as seed
-    const randomArray = [];
-    let seed = req.params.code;
-    for (let i = 0; i < 16; i++) {
-      const rand = gen(seed);
-      randomArray.push(rand(21));
-      seed++;
+    const randomSet = new Set();
+    random.use(seedrandom(req.params.code))
+    while (randomSet.size <= 16) {
+      randomSet.add(random.uniformInt(0, 20)());
     }
+    const randomArray = Array.from(randomSet);
 
     const pictures = await Promise.all(
       randomArray.map((num) => {
