@@ -13,7 +13,7 @@ router.get('/:code', async (req, res, next) => {
     const randomSet = new Set();
     random.use(seedrandom(req.params.code))
     while (randomSet.size < 16) {
-      randomSet.add(random.uniformInt(1, 20)());
+      randomSet.add(random.uniformInt(1, 34)());
     }
     const randomArray = Array.from(randomSet);
 

@@ -1,5 +1,3 @@
-const Message = require('../db/models/message');
-const Channel = require('../db/models/channel');
 
 module.exports = io => {
 

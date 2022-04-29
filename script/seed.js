@@ -64,6 +64,48 @@ const images = [
   {
     url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Estaci%C3%B3n_de_Gadea_-_R%C3%ADo_Tinto.jpg',
   },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/02019_0241_%282%29_Catholic_nationalists_block_gay_rigths_pride_march_in_Cz%C4%99stochowa%2C_TVP_Info.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Bus_61_in_Delft.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Line_dancers_in_their_natural_habitat_%28225633218%29.jpg/800px-Line_dancers_in_their_natural_habitat_%28225633218%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Bald_eagle_on_log_at_Eastern_Neck_National_Wildlife_Refuge_%2834252289242%29.jpg/800px-Bald_eagle_on_log_at_Eastern_Neck_National_Wildlife_Refuge_%2834252289242%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Berlin-Tempelhof_-_UFA-Fabrik_-_geo.hlipp.de_-_32650.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Boat_in_Newquay_harbour_%285916%29.jpg/800px-Boat_in_Newquay_harbour_%285916%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ChineseLionDancing_Ashfield.jpg/800px-ChineseLionDancing_Ashfield.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Pozorrubio_de_Santiago_14.jpg/800px-Pozorrubio_de_Santiago_14.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/The_Mirage_Hotel_%287980816556%29.jpg/800px-The_Mirage_Hotel_%287980816556%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Sparta%2CTN_caves_-_panoramio.jpg/800px-Sparta%2CTN_caves_-_panoramio.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/The_presenters_of_K%C3%B5igi_Eesti_Laul.jpg/800px-The_presenters_of_K%C3%B5igi_Eesti_Laul.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Costiera_amalfitana_-mix-_2019_by-RaBoe_781.jpg/800px-Costiera_amalfitana_-mix-_2019_by-RaBoe_781.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Locomoco_%287770124116%29.jpg/800px-Locomoco_%287770124116%29.jpg',
+  },
+  {
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Fredrick_Potts_memorial%2C_Reading_%283%29.JPG/800px-Fredrick_Potts_memorial%2C_Reading_%283%29.JPG',
+  },
 ];
 
 async function seed() {

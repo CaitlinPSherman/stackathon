@@ -1,8 +1,8 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
-const socket = require('socket.io');
 const app = express()
+
 module.exports = app
 
 // logging middleware

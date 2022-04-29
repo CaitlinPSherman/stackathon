@@ -4,6 +4,7 @@ import socket from '../socket';
 const GET_ROOM_CODE = 'GET_ROOM_CODE';
 const GET_PICTURES = 'GET_PICTURES';
 const ADD_PLAYER = 'ADD_PLAYER';
+const GOT_MESSAGE_FROM_SERVER = 'GOT_MESSAGE_FROM_SERVER';
 
 export const _getRoomCode = (code) => ({
   type: GET_ROOM_CODE,
@@ -20,6 +21,13 @@ export const _addPlayer = (name) => ({
   name,
 });
 
+export const _gotMessageFromServer = (message) => {
+  return {
+    type: GOT_MESSAGE_FROM_SERVER,
+    message,
+  };
+};
+
 export const getRoomCode = () => {
   return async (dispatch) => {
     try {
@@ -29,7 +37,7 @@ export const getRoomCode = () => {
       console.err('😭 unable to get room code', err);
     }
   };
-}
+};
 
 export const getPictures = (code) => {
   return async (dispatch) => {
@@ -53,15 +61,23 @@ export const addPlayer = (name, code) => {
       console.err('😭 unable to get pics', err);
     }
   };
-}
+};
 
-export const postMessage = (message)=> {
-  return async (dispatch)=> {
-    const response = await axios.post('/api/messages', message);
+export const postMessage = (message) => {
+  return async (dispatch) => {
+    const response = await axios.post('/api/socket', message);
     const newMessage = response.data;
-    const action = gotMessageFromServer(newMessage);
+    const action = _gotMessageFromServer(newMessage);
     dispatch(action);
     socket.emit('new-message', newMessage);
+  };
+};
+
+export const gotMessageFromServer = () => {
+  return async (dispatch) => {
+    const response = await axios.get('/api/socket');
+    const messages = response.data;
+    dispatch(_gotMessageFromServer(messages));
   };
 };
 
@@ -69,6 +85,7 @@ const initialstate = {
   players: [],
   pictures: [],
   code: '',
+  messages: [],
 };
 
 export default function gameReducer(state = initialstate, action) {
@@ -83,6 +100,8 @@ export default function gameReducer(state = initialstate, action) {
         ...state,
         code: action.code,
       };
+    case GOT_MESSAGE_FROM_SERVER:
+      return { ...state, messages: action.messages };
     default:
       return state;
   }
