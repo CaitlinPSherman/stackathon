@@ -1,6 +1,7 @@
 const router = require('express').Router();
 module.exports = router;
 
+
 router.use('/pictures', require('./pictures'));
 router.use('/game', require('./game'));
 

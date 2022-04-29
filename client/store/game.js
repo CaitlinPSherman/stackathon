@@ -1,4 +1,5 @@
 import axios from 'axios';
+import socket from '../socket';
 
 const GET_ROOM_CODE = 'GET_ROOM_CODE';
 const GET_PICTURES = 'GET_PICTURES';
@@ -53,6 +54,16 @@ export const addPlayer = (name, code) => {
     }
   };
 }
+
+export const postMessage = (message)=> {
+  return async (dispatch)=> {
+    const response = await axios.post('/api/messages', message);
+    const newMessage = response.data;
+    const action = gotMessageFromServer(newMessage);
+    dispatch(action);
+    socket.emit('new-message', newMessage);
+  };
+};
 
 const initialstate = {
   players: [],
