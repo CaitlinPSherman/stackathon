@@ -6,13 +6,14 @@ const {
 } = require('../db');
 module.exports = router;
 
+// GET /api/pictures/:code
 router.get('/:code', async (req, res, next) => {
   try {
     //generate random array of 16 pictureIds using code as seed
     const randomSet = new Set();
     random.use(seedrandom(req.params.code))
-    while (randomSet.size <= 16) {
-      randomSet.add(random.uniformInt(0, 20)());
+    while (randomSet.size < 16) {
+      randomSet.add(random.uniformInt(1, 20)());
     }
     const randomArray = Array.from(randomSet);
 

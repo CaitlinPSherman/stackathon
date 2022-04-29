@@ -1,0 +1,26 @@
+const router = require('express').Router();
+module.exports = router;
+
+// GET /api/player/:code
+router.get('/code', async (req, res, next) => {
+  //get all player info by room code
+  try {
+    console.log('hitting player back end');
+
+    res.send();
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/player/:code
+router.post('/code', async (req, res, next) => {
+  //save player info by room code
+  try {
+    console.log('hitting player back end');
+
+    res.send();
+  } catch (err) {
+    next(err);
+  }
+});

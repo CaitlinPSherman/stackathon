@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const GET_GAME_CODE = 'GET_GAME_CODE';
+const GET_ROOM_CODE = 'GET_ROOM_CODE';
 const GET_PICTURES = 'GET_PICTURES';
 const ADD_PLAYER = 'ADD_PLAYER';
 
-export const _getGameCode = (code) => ({
-  type: GET_GAME_CODE,
+export const _getRoomCode = (code) => ({
+  type: GET_ROOM_CODE,
   code,
 });
 
@@ -19,10 +19,22 @@ export const _addPlayer = (name) => ({
   name,
 });
 
+export const getRoomCode = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/game/code`);
+      dispatch(_getRoomCode(data));
+    } catch (err) {
+      console.err('😭 unable to get room code', err);
+    }
+  };
+}
+
 export const getPictures = (code) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`api/pictures/${code}`);
+      const { data } = await axios.get(`/api/pictures/${code}`);
+
       dispatch(_getPictures(data));
     } catch (err) {
       console.err('😭 unable to get pics', err);
@@ -30,10 +42,22 @@ export const getPictures = (code) => {
   };
 };
 
+export const addPlayer = (name, code) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/game/${code}`, name);
+
+      dispatch(_addPlayer(data));
+    } catch (err) {
+      console.err('😭 unable to get pics', err);
+    }
+  };
+}
+
 const initialstate = {
   players: [],
   pictures: [],
-  code: 0,
+  code: '',
 };
 
 export default function gameReducer(state = initialstate, action) {
@@ -43,7 +67,7 @@ export default function gameReducer(state = initialstate, action) {
         ...state,
         pictures: action.pics,
       };
-    case GET_GAME_CODE:
+    case GET_ROOM_CODE:
       return {
         ...state,
         code: action.code,
