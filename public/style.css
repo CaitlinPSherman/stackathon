@@ -32,6 +32,9 @@ nav > h1, h1 {
 
 #main-container {
   margin: 80px 20px 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -48,6 +51,37 @@ button:hover {
 }
 
 img {
-  width: 300px;
-  height: 200px;
+  width: 250px;
+  height: 165px;
 }
+
+ul {
+  list-style: none;
+}
+
+#pictures-container {
+  width: 1040px;
+}
+
+#pics-x-label {
+  display: flex;
+  justify-content: space-around;
+}
+
+#pics-y-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 12px;
+}
+
+#pics-fit {
+  display: flex;
+}
+
+#pics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+}
+

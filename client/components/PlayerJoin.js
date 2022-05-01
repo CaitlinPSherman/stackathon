@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postMessage } from '../store/game';
+import { addPlayer } from '../store/game';
+import { Link } from 'react-router-dom';
 
-const Join = () => {
+const PlayerJoin = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [playerCode, setPlayerCode] = useState('');
-
   return (
     <div id="join-container">
       <label>Room Code:</label>
@@ -16,11 +16,16 @@ const Join = () => {
       />
       <label>Name:</label>
       <input value={name} onChange={(e) => setName(e.target.value)} />
-      <button type="submit" onClick={dispatch(postMessage({name, playerCode}))}>
-        JOIN
-      </button>
+      <Link to="/waiting">
+        <button
+          type="submit"
+          onClick={() => dispatch(addPlayer(name, playerCode))}
+        >
+          JOIN
+        </button>
+      </Link>
     </div>
   );
 };
 
-export default Join;
+export default PlayerJoin;

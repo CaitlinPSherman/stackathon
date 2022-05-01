@@ -1,6 +1,5 @@
 import axios from 'axios';
 import socket from '../socket';
-
 const GET_ROOM_CODE = 'GET_ROOM_CODE';
 const GET_PICTURES = 'GET_PICTURES';
 const ADD_PLAYER = 'ADD_PLAYER';
@@ -34,7 +33,7 @@ export const getRoomCode = () => {
       const { data } = await axios.get(`/api/game/code`);
       dispatch(_getRoomCode(data));
     } catch (err) {
-      console.err('😭 unable to get room code', err);
+      console.log('😭 unable to get room code', err);
     }
   };
 };
@@ -46,7 +45,7 @@ export const getPictures = (code) => {
 
       dispatch(_getPictures(data));
     } catch (err) {
-      console.err('😭 unable to get pics', err);
+      console.log('😭 unable to get pics', err);
     }
   };
 };
@@ -54,38 +53,38 @@ export const getPictures = (code) => {
 export const addPlayer = (name, code) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/api/game/${code}`, name);
-
+      const { data } = await axios.post(`/api/game/${code}/player`, {name});
       dispatch(_addPlayer(data));
+      socket.emit('new-player', data)
     } catch (err) {
-      console.err('😭 unable to get pics', err);
+      console.log('😭 unable to add player', err);
     }
   };
 };
 
-export const postMessage = (message) => {
-  return async (dispatch) => {
-    const response = await axios.post('/api/socket', message);
-    const newMessage = response.data;
-    const action = _gotMessageFromServer(newMessage);
-    dispatch(action);
-    socket.emit('new-message', newMessage);
-  };
-};
+// export const postMessage = (message) => {
+//   return async (dispatch) => {
+//     const response = await axios.post('/api/socket', message);
+//     const newMessage = response.data;
+//     const action = _gotMessageFromServer(newMessage);
+//     dispatch(action);
+//     socket.emit('new-message', newMessage);
+//   };
+// };
 
-export const gotMessageFromServer = () => {
-  return async (dispatch) => {
-    const response = await axios.get('/api/socket');
-    const messages = response.data;
-    dispatch(_gotMessageFromServer(messages));
-  };
-};
+// export const gotMessageFromServer = () => {
+//   return async (dispatch) => {
+//     const response = await axios.get('/api/socket');
+//     const messages = response.data;
+//     dispatch(_gotMessageFromServer(messages));
+//   };
+// };
 
 const initialstate = {
   players: [],
   pictures: [],
   code: '',
-  messages: [],
+  score: {},
 };
 
 export default function gameReducer(state = initialstate, action) {
@@ -100,8 +99,14 @@ export default function gameReducer(state = initialstate, action) {
         ...state,
         code: action.code,
       };
-    case GOT_MESSAGE_FROM_SERVER:
-      return { ...state, messages: action.messages };
+      case ADD_PLAYER:
+        const newPlayers = [...state.players, action.name]
+        return {
+          ...state,
+          players: newPlayers,
+        };
+    // case GOT_MESSAGE_FROM_SERVER:
+    //   return { ...state, messages: action.messages };
     default:
       return state;
   }

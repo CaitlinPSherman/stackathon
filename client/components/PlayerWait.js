@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-const ColorGrid = () => {
+const PlayerWait = () => {
   return (
-    <div id="color-grid-container">
-    <p>color grid goes here</p>
+    <div>
+    <p>Wait message here</p>
     </div>
   )
 }
 
-export default ColorGrid;
+export default PlayerWait;

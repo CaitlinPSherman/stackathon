@@ -5,8 +5,10 @@ module.exports = io => {
 
     console.log(socket.id, ' has made a persistent connection to the server!');
 
-    socket.on('new-message', message => {
-      socket.broadcast.emit('new-message', message);
+    socket.emit("hello", "world");
+
+    socket.on('new-player', player => {
+      socket.broadcast.emit('new-player', player);
     });
 
     socket.on('new-channel', channel => {
