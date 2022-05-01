@@ -68,8 +68,7 @@ router.post('/:code/drawing', async (req, res, next) => {
     const drawing = req.body.drawing
     const code = req.params.code
     games[code].drawings[player] = drawing;
-    res.send(games[code].drawings[player]);
-    console.log('games: ', games)
+    res.send({player, drawing});
   } catch (err) {
     next(err);
   }

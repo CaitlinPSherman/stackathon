@@ -42,11 +42,11 @@ export const _changeGameStage = (stage) => {
   };
 };
 
-export const _submitDrawing = (drawing, player) => {
+export const _submitDrawing = ({player, drawing}) => {
   return {
     type: SUBMIT_DRAWING,
-    drawing,
     player,
+    drawing
   };
 };
 
@@ -105,6 +105,7 @@ export const submitDrawing = (drawing, player, code) => {
         player,
       });
       dispatch(_submitDrawing(data));
+      socket.emit('submit-drawing', data);
     } catch (err) {
       console.log('😭 unable to submit drawing', err);
     }
@@ -151,13 +152,11 @@ export default function gameReducer(state = initialstate, action) {
       };
     case SUBMIT_DRAWING:
       const newDrawings = { ...state.drawings };
-      newDrawings[action.player] = action.drawing;
+      newDrawings[action.player] = action.drawing
       return {
         ...state,
         drawings: newDrawings,
       };
-    // case GOT_MESSAGE_FROM_SERVER:
-    //   return { ...state, messages: action.messages };
     default:
       return state;
   }

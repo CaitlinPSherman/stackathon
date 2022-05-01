@@ -9,5 +9,10 @@ module.exports = (io) => {
     socket.on('change-stage', (stage) => {
       socket.broadcast.emit('change-stage', stage);
     });
+
+    socket.on('submit-drawing', (playerDrawing) => {
+      socket.broadcast.emit('submit-drawing', playerDrawing);
+    });
+
   });
 };

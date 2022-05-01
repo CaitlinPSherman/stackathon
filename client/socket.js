@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { addPlayer, _addPlayer, _changeGameStage, _getRoomCode } from './store/game';
+import { addPlayer, _addPlayer, _changeGameStage, _getRoomCode, _submitDrawing } from './store/game';
 import store from './store';
 
 const socket = io(window.location.origin);
@@ -18,6 +18,11 @@ socket.on('new-player', (player) => {
 
 socket.on('change-stage', (stage) => {
   store.dispatch(_changeGameStage(stage));
+});
+
+socket.on('submit-drawing', (playerDrawing) => {
+  console.log('drawing:', playerDrawing)
+  store.dispatch(_submitDrawing(playerDrawing));
 });
 
 export default socket;
