@@ -27,7 +27,6 @@ router.post('/:code', async (req, res, next) => {
     } else {
       players[req.params.code] = [req.body.name];
     }
-    console.log('players: ', players);
     res.send(players[req.params.code]);
   } catch (err) {
     next(err);

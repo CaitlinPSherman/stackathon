@@ -16,14 +16,11 @@ const PlayerJoin = () => {
       />
       <label>Name:</label>
       <input value={name} onChange={(e) => setName(e.target.value)} />
-      <Link to="/waiting">
-        <button
-          type="submit"
-          onClick={() => dispatch(addPlayer(name, playerCode))}
-        >
-          JOIN
-        </button>
-      </Link>
+      <button
+        type="submit"
+        onClick={() => dispatch(addPlayer(name, playerCode))}>
+        JOIN
+      </button>
     </div>
   );
 };

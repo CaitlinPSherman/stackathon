@@ -5,11 +5,13 @@ import { _getRoomCode } from '../store/game';
 const Navbar = () => {
   const dispatch = useDispatch();
   const code = useSelector((state) => state.game.code);
+  const stage = useSelector(state => state.game.stage)
 
   useEffect(() => {
     dispatch(_getRoomCode());
   }, []);
 
+  console.log('stage', stage)
   return (
   <nav>
     <h1>Pictures Drawn Poorly :-/</h1>

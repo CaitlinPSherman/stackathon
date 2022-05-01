@@ -6,11 +6,13 @@ module.exports = router;
 const games = {};
 
 //games = {
-  //1111: {
-    //players: [a, b],
-    //score: {a: 1, b: 9},
-    //gameState: "waiting" or "round 1" etc ?
-  //}
+//1111: {
+//players: [a, b],
+//score: {a: 1, b: 9},
+//stage: "beginning", "drawing", "assigning" etc ?
+//round: 1, 2, 3, 4, 5
+//drawings: {a: ':)', b: ":-/"}
+//}
 //}
 
 //create a new room
@@ -18,13 +20,13 @@ const games = {};
 router.get('/code', async (req, res, next) => {
   //get room code
   try {
-    const code = '22'
+    const code = '22';
     //commenting out the randomizer for testing purposes
     // Math.floor(Math.random() * 10000)
     //   .toString()
     //   .padStart(4, '0');
 
-    games[code] = {players: [], score: {}};
+    games[code] = { players: [], score: {}, drawings: {} };
     res.send(code);
   } catch (err) {
     next(err);
@@ -39,10 +41,32 @@ router.post('/:code/player', async (req, res, next) => {
     if (games[req.params.code].players.includes(name)) {
       res.status(501);
     } else {
-      console.log('name going into server here:', name)
       games[req.params.code].players.push(name);
     }
+    console.log('games: ', games)
     res.send(name);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/game/:code/stage
+router.post('/:code/stage', async (req, res, next) => {
+  try {
+    games[req.params.code].stage = req.body.stage;
+    res.send(games[req.params.code].stage);
+    console.log('games: ', games)
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/game/:code/drawing
+router.post('/:code/drawing', async (req, res, next) => {
+  try {
+    games[req.params.code].drawings[req.body.player] = req.body.drawing;
+    res.send(games[req.params.code].drawings[req.body.player]);
+    console.log('games: ', games)
   } catch (err) {
     next(err);
   }
