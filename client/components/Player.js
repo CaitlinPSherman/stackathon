@@ -5,10 +5,7 @@ import PlayerWait from './PlayerWait';
 import PlayerPlaying from './PlayerPlaying';
 
 const Player = () => {
-  const stage = useSelector((state) => {
-    console.log('stage', state.game.stage);
-    return state.game.stage;
-  });
+  const stage = useSelector((state) => state.game.stage);
 
   return (
     <div id="main-game-container">

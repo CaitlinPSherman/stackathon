@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addPlayer } from '../store/game';
+import { addPlayer, _addLocalPlayer, _getRoomCode } from '../store/game';
 import { Link } from 'react-router-dom';
 
 const PlayerJoin = () => {
@@ -18,7 +18,12 @@ const PlayerJoin = () => {
       <input value={name} onChange={(e) => setName(e.target.value)} />
       <button
         type="submit"
-        onClick={() => dispatch(addPlayer(name, playerCode))}>
+        onClick={() => {
+          dispatch(addPlayer(name, playerCode));
+          dispatch(_addLocalPlayer(name));
+          dispatch(_getRoomCode(playerCode))
+        }}
+      >
         JOIN
       </button>
     </div>

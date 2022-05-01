@@ -11,7 +11,6 @@ const Navbar = () => {
     dispatch(_getRoomCode());
   }, []);
 
-  console.log('stage', stage)
   return (
   <nav>
     <h1>Pictures Drawn Poorly :-/</h1>

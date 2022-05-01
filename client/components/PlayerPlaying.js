@@ -8,7 +8,7 @@ import { submitDrawing } from '../store/game';
 const PlayerPlaying = () => {
   const dispatch = useDispatch();
   const [localStage, setLocalStage] = useState('drawing');
-  const player = useSelector(state => state.game.players)
+  const localPlayer = useSelector(state => state.game.localPlayer)
   const code = useSelector(state => state.game.code)
   const drawing = ':)'
 
@@ -22,7 +22,7 @@ const PlayerPlaying = () => {
             type="submit"
             onClick={() => {
               setLocalStage('waiting');
-              dispatch(submitDrawing(drawing, player, ));
+              dispatch(submitDrawing(drawing, localPlayer, code));
             }}
           >
             Submit

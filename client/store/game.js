@@ -3,6 +3,7 @@ import socket from '../socket';
 const GET_ROOM_CODE = 'GET_ROOM_CODE';
 const GET_PICTURES = 'GET_PICTURES';
 const ADD_PLAYER = 'ADD_PLAYER';
+const ADD_LOCAL_PLAYER = 'ADD_LOCAL_PLAYER';
 const GOT_MESSAGE_FROM_SERVER = 'GOT_MESSAGE_FROM_SERVER';
 const CHANGE_GAME_STAGE = 'CHANGE_GAME_STAGE';
 const SUBMIT_DRAWING = 'SUBMIT_DRAWING';
@@ -21,6 +22,11 @@ export const _addPlayer = (name) => ({
   type: ADD_PLAYER,
   name,
 });
+
+export const _addLocalPlayer = (name) => ({
+  type: ADD_LOCAL_PLAYER,
+  name
+})
 
 export const _gotMessageFromServer = (message) => {
   return {
@@ -107,6 +113,7 @@ export const submitDrawing = (drawing, player, code) => {
 
 const initialstate = {
   players: [],
+  localPlayer: '',
   pictures: [],
   code: '',
   score: {},
@@ -132,6 +139,11 @@ export default function gameReducer(state = initialstate, action) {
         ...state,
         players: newPlayers,
       };
+    case ADD_LOCAL_PLAYER:
+      return {
+        ...state,
+        localPlayer: action.name
+      }
     case CHANGE_GAME_STAGE:
       return {
         ...state,

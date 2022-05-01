@@ -64,8 +64,11 @@ router.post('/:code/stage', async (req, res, next) => {
 // POST /api/game/:code/drawing
 router.post('/:code/drawing', async (req, res, next) => {
   try {
-    games[req.params.code].drawings[req.body.player] = req.body.drawing;
-    res.send(games[req.params.code].drawings[req.body.player]);
+    const player = req.body.player
+    const drawing = req.body.drawing
+    const code = req.params.code
+    games[code].drawings[player] = drawing;
+    res.send(games[code].drawings[player]);
     console.log('games: ', games)
   } catch (err) {
     next(err);

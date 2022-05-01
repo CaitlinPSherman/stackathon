@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { addPlayer, _addPlayer, _changeGameStage } from './store/game';
+import { addPlayer, _addPlayer, _changeGameStage, _getRoomCode } from './store/game';
 import store from './store';
 
 const socket = io(window.location.origin);
