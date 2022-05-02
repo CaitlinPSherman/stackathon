@@ -20,11 +20,9 @@ const games = {};
 router.get('/code', async (req, res, next) => {
   //get room code
   try {
-    const code = '22';
-    //commenting out the randomizer for testing purposes
-    // Math.floor(Math.random() * 10000)
-    //   .toString()
-    //   .padStart(4, '0');
+    const code = Math.floor(Math.random() * 10000)
+      .toString()
+      .padStart(4, '0');
 
     games[code] = { players: [], score: {}, drawings: {} };
     res.send(code);
@@ -43,7 +41,7 @@ router.post('/:code/player', async (req, res, next) => {
     } else {
       games[req.params.code].players.push(name);
     }
-    console.log('games: ', games)
+    console.log('games: ', games);
     res.send(name);
   } catch (err) {
     next(err);
@@ -55,7 +53,7 @@ router.post('/:code/stage', async (req, res, next) => {
   try {
     games[req.params.code].stage = req.body.stage;
     res.send(games[req.params.code].stage);
-    console.log('games: ', games)
+    console.log('games: ', games);
   } catch (err) {
     next(err);
   }
@@ -64,11 +62,11 @@ router.post('/:code/stage', async (req, res, next) => {
 // POST /api/game/:code/drawing
 router.post('/:code/drawing', async (req, res, next) => {
   try {
-    const player = req.body.player
-    const drawing = req.body.drawing
-    const code = req.params.code
+    const player = req.body.player;
+    const drawing = req.body.drawing;
+    const code = req.params.code;
     games[code].drawings[player] = drawing;
-    res.send({player, drawing});
+    res.send({ player, drawing });
   } catch (err) {
     next(err);
   }

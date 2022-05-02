@@ -91,3 +91,16 @@ ul {
   display: flex;
   flex-direction: column;
 }
+
+#main-game-info-container {
+  display: flex;
+}
+#main-game-info-container > h3 {
+  margin: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+  nav {
+    font-size: small;
+  }
+}
