@@ -6,6 +6,7 @@ const ADD_PLAYER = 'ADD_PLAYER';
 const ADD_LOCAL_PLAYER = 'ADD_LOCAL_PLAYER';
 const GOT_MESSAGE_FROM_SERVER = 'GOT_MESSAGE_FROM_SERVER';
 const CHANGE_GAME_STAGE = 'CHANGE_GAME_STAGE';
+const GET_PICTURE_ASSIGNMENTS = 'GET_PICTURE_ASSIGNMENTS';
 const SUBMIT_DRAWING = 'SUBMIT_DRAWING';
 
 export const _getRoomCode = (code) => ({
@@ -49,6 +50,13 @@ export const _submitDrawing = ({player, drawing}) => {
     drawing
   };
 };
+
+export const _getPictureAssignments = ({picAssignments}) => {
+  return {
+    type: GET_PICTURE_ASSIGNMENTS,
+    picAssignments
+  }
+}
 
 export const getRoomCode = () => {
   return async (dispatch) => {
@@ -96,6 +104,18 @@ export const changeGameStage = (stage, code) => {
   };
 };
 
+export const getPictureAssignments = (code) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/game/${code}/assignments`);
+      dispatch(_getPictureAssignments(data));
+    } catch (err) {
+      console.log('😭 unable to change game stage', err);
+    }
+  };
+};
+
+
 export const submitDrawing = (drawing, player, code) => {
   return async (dispatch) => {
     try {
@@ -117,9 +137,11 @@ const initialstate = {
   localPlayer: '',
   pictures: [],
   code: '',
-  score: {},
   stage: 'beginning',
+  round: 0,
+  pictureAssignments: {},
   drawings: {},
+  score: {},
 };
 
 export default function gameReducer(state = initialstate, action) {

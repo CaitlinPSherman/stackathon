@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const random = require('random');
-const seedrandom = require('seedrandom');
 module.exports = router;
 
 const games = {};
@@ -24,8 +22,30 @@ router.get('/code', async (req, res, next) => {
       .toString()
       .padStart(4, '0');
 
-    games[code] = { players: [], score: {}, drawings: {} };
+    games[code] = { players: [], stage: 'beginning', round: 0, pictureAssignments: {}, score: {}, drawings: {} };
     res.send(code);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/game/:code/assignments
+router.get('/:code/assignments', async (req, res, next) => {
+  //get pic assignments
+  try {
+    const picCoords = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']
+    const code = req.params.code
+    const players = games[code].players
+    const randomCoords = new Set();
+    while (randomCoords.size < players.length) {
+      randomCoords.add(Math.floor(Math.random() * 17))
+    }
+    const coordArray = Array.from(randomCoords)
+    for (let i = 0; i < players.length; i++) {
+      games[code].pictureAssignments[player[i]] = coordArray[i]
+    }
+
+    res.send(games[code].pictureAssignments);
   } catch (err) {
     next(err);
   }
