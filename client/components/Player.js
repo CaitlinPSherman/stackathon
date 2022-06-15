@@ -6,6 +6,7 @@ import PlayerPlaying from './PlayerPlaying';
 
 const Player = () => {
   const stage = useSelector((state) => state.game.stage);
+  console.log('player')
 
   return (
     <div id="main-game-container">
