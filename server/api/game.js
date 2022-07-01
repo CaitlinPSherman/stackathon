@@ -42,9 +42,8 @@ router.get('/:code/assignments', async (req, res, next) => {
     }
     const coordArray = Array.from(randomCoords)
     for (let i = 0; i < players.length; i++) {
-      games[code].pictureAssignments[player[i]] = coordArray[i]
+      games[code].pictureAssignments[players[i]] = picCoords[coordArray[i]]
     }
-
     res.send(games[code].pictureAssignments);
   } catch (err) {
     next(err);
@@ -61,7 +60,6 @@ router.post('/:code/player', async (req, res, next) => {
     } else {
       games[req.params.code].players.push(name);
     }
-    console.log('games: ', games);
     res.send(name);
   } catch (err) {
     next(err);
@@ -73,7 +71,6 @@ router.post('/:code/stage', async (req, res, next) => {
   try {
     games[req.params.code].stage = req.body.stage;
     res.send(games[req.params.code].stage);
-    console.log('games: ', games);
   } catch (err) {
     next(err);
   }

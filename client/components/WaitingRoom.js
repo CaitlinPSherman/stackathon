@@ -16,7 +16,7 @@ const WaitingRoom = () => {
     <div id="waitingRoom-container">
       <h2>Welcome to Pictures Drawn Poorly!</h2>
       <h3>
-        To get started, go to [url] on your phone and sign in with the room code
+        To get started, go to pictures-drawn-poorly.herokuapp.com on your phone and tap "Player" to sign in with the room code above.
       </h3>
       <h3>Players:</h3>
       <ul>

@@ -26,8 +26,8 @@ export const _addPlayer = (name) => ({
 
 export const _addLocalPlayer = (name) => ({
   type: ADD_LOCAL_PLAYER,
-  name
-})
+  name,
+});
 
 export const _gotMessageFromServer = (message) => {
   return {
@@ -43,20 +43,20 @@ export const _changeGameStage = (stage) => {
   };
 };
 
-export const _submitDrawing = ({player, drawing}) => {
+export const _submitDrawing = ({ player, drawing }) => {
   return {
     type: SUBMIT_DRAWING,
     player,
-    drawing
+    drawing,
   };
 };
 
-export const _getPictureAssignments = ({picAssignments}) => {
+export const _getPictureAssignments = (picAssignments) => {
   return {
     type: GET_PICTURE_ASSIGNMENTS,
-    picAssignments
-  }
-}
+    picAssignments,
+  };
+};
 
 export const getRoomCode = () => {
   return async (dispatch) => {
@@ -110,11 +110,10 @@ export const getPictureAssignments = (code) => {
       const { data } = await axios.get(`/api/game/${code}/assignments`);
       dispatch(_getPictureAssignments(data));
     } catch (err) {
-      console.log('😭 unable to change game stage', err);
+      console.log('😭 unable to get picture assignments', err);
     }
   };
 };
-
 
 export const submitDrawing = (drawing, player, code) => {
   return async (dispatch) => {
@@ -165,16 +164,21 @@ export default function gameReducer(state = initialstate, action) {
     case ADD_LOCAL_PLAYER:
       return {
         ...state,
-        localPlayer: action.name
-      }
+        localPlayer: action.name,
+      };
     case CHANGE_GAME_STAGE:
       return {
         ...state,
         stage: action.stage,
       };
+    case GET_PICTURE_ASSIGNMENTS:
+      return {
+        ...state,
+        pictureAssignments: action.picAssignments,
+      };
     case SUBMIT_DRAWING:
       const newDrawings = { ...state.drawings };
-      newDrawings[action.player] = action.drawing
+      newDrawings[action.player] = action.drawing;
       return {
         ...state,
         drawings: newDrawings,
